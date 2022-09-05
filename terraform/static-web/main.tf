@@ -20,7 +20,7 @@ provider "aws" {
   profile = var.profile
 }
 
-resource "aws_s3_bucket" "terraform_state" {
+resource "aws_s3_bucket" "b" {
   bucket        = "kaokakelvin-nginx-static-web"
   force_destroy = true
 
