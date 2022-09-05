@@ -20,10 +20,10 @@ pipeline {
                 script {
                     if (params.Action == "apply") {
                         sh 'terraform init terraform/static-web'
-                        sh 'terraform apply --auto-approve terraform/static-web'
+                        sh 'terraform apply terraform/static-web/ --auto-approve'
                     }
                     else {
-                        sh 'terraform destroy --auto-approve terraform/static-web'
+                        sh 'terraform destroy terraform/static-web/ --auto-approve'
                     }
                 }
             }
