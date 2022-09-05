@@ -23,7 +23,7 @@ pipeline {
                         sh 'terraform -chdir=./terraform/static-web apply --auto-approve'
                     }
                     else {
-                        sh 'terraform -chdir=./terraform/static-web destroy --auto-approve'
+                        sh 'terraform -chdir=./terraform/static-web --auto-approve destroy'
                     }
                 }
             }
