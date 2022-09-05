@@ -13,3 +13,8 @@ variable "group" {
 variable "name" {
     description = "Name of instance being launched"
 }
+
+variable "instance_type" {
+    description = "Type of instance being launched"
+    default = "t2.micro"    
+}

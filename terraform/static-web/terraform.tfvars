@@ -1,0 +1,5 @@
+name = "nginx-site" 
+group = "web"
+region = "us-east-1"
+profile = "devopsrole"
+instance_type ="t2.micro"

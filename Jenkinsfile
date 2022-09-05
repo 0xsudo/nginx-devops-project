@@ -3,7 +3,7 @@ pipeline {
     parameters {
         choice(
             name: 'Action',
-            choicesa: "apply\ndestroy",
+            choices: "apply\ndestroy",
             description: 'Create or destroy the instance'
         )
     }
@@ -11,7 +11,7 @@ pipeline {
     stages {
         stage('Git Checkout') {
             steps {
-                git branch: 'main', credentialsId: 'anon', url: 'git@github.com:0xsudo/nginx-devops-project.git'
+                git branch: 'main', credentialsId: 'jenkins', url: 'git@github.com:0xsudo/nginx-devops-project.git'
             }
         }
 
@@ -20,10 +20,10 @@ pipeline {
                 script {
                     if (params.Action == "apply") {
                         sh 'terraform init terraform/static-web'
-                        sh 'terraform apply -var "name=nginx-site" -var "group=web" -var "region=us-east-1" -var "profile=devopsrole" --auto-approve terraform/static-web'
+                        sh 'terraform apply --auto-approve terraform/static-web'
                     }
                     else {
-                        sh 'terraform destroy -var "name=nginx-site" -var "group=web" -var "region=us-east-1" -var "profile=devopsrole" --auto-approve terraform/static-web'
+                        sh 'terraform destroy --auto-approve terraform/static-web'
                     }
                 }
             }

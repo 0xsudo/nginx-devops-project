@@ -21,8 +21,8 @@ provider "aws" {
 }
 
 resource "aws_instance" "static-web" {
-    ami = "ami-052efd3df9dad4825"
-    instance_type = "t2.micro"
+    ami = data.aws_ami.ubuntu.id
+    instance_type = var.instance_type
     key_name = "nginx-keypair.pem"
     vpc_security_group_ids = ["sg-08ff285b264c49053", "sg-0dc6164b1fff25c7f"]
 
