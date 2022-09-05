@@ -20,7 +20,7 @@ pipeline {
                 script {
                     if (params.Action == "apply") {
                         sh 'terraform -chdir=./terraform/static-web init'
-                        sh 'terraform -chdir=./terraform/static-web apply --auto-approve'
+                        sh 'terraform -chdir=./terraform/static-web --auto-approve apply'
                     }
                     else {
                         sh 'terraform -chdir=./terraform/static-web --auto-approve destroy'
