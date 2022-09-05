@@ -19,11 +19,11 @@ pipeline {
             steps {
                 script {
                     if (params.Action == "apply") {
-                        sh 'terraform init terraform/static-web'
-                        sh 'terraform apply terraform/static-web --auto-approve'
+                        sh 'terraform -chdir=./terraform/static-web init'
+                        sh 'terraform -chdir=./terraform/static-web apply --auto-approve'
                     }
                     else {
-                        sh 'terraform destroy terraform/static-web --auto-approve'
+                        sh 'terraform -chdir=./terraform/static-web destroy --auto-approve'
                     }
                 }
             }
