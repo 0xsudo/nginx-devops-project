@@ -6,7 +6,7 @@ terraform {
   #  dynamodb_table = "terraform-state-locking-nginx-static-web"
   #  encrypt        = true
   #}
-# comment out backend section to create required resources first
+  # comment out backend section to create required resources first
 
   required_providers {
     aws = {
