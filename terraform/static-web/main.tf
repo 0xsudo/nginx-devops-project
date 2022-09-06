@@ -17,15 +17,23 @@ terraform {
 }
 
 provider "aws" {
-  region  = var.region
+  region = var.region
 }
 
 resource "aws_s3_bucket" "terraform_state" {
   bucket        = "kaokakelvin-nginx-static-web"
   force_destroy = true
+}
 
-  aws_s3_bucket_versioning {
-    enabled = true
+resource "aws_s3_bucket_acl" "bucket-acl" {
+  bucket = aws_s3_bucket.terraform_state.id
+  acl    = "private"
+}
+
+resource "aws_s3_bucket_versioning" "bucket-versioning" {
+  bucket = aws_s3_bucket.terraform_state.id
+  versioning_configuration {
+    status = "Enabled"
   }
 }
 
