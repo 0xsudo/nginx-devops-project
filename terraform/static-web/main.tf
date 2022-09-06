@@ -24,7 +24,7 @@ resource "aws_s3_bucket" "terraform_state" {
   bucket        = "kaokakelvin-nginx-static-web"
   force_destroy = true
 
-  versioning {
+  aws_s3_bucket_versioning {
     enabled = true
   }
 }
