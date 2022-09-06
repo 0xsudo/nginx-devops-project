@@ -24,7 +24,6 @@ provider "aws" {
 resource "aws_s3_bucket" "terraform_state" {
   bucket        = "kaokakelvin-nginx-static-web"
   force_destroy = true
-  key           = "nginx-static-web/terraform.tfstate"
 
   versioning {
     enabled = true
@@ -33,7 +32,7 @@ resource "aws_s3_bucket" "terraform_state" {
   server_side_encryption_configuration {
     rule {
       apply_server_side_encryption_by_default {
-        sse_encryption = "AES256"
+        sse_algorithm = "AES256"
       }
     }
   }
@@ -52,7 +51,7 @@ resource "aws_dynamodb_table" "terraform_locks" {
 }
 
 resource "aws_instance" "static-web" {
-  ami                    = data.aws_ami.ubuntu.id
+  ami                    = "ami-052efd3df9dad4825"
   instance_type          = var.instance_type
   key_name               = "nginx-keypair.pem"
   vpc_security_group_ids = ["sg-08ff285b264c49053", "sg-0dc6164b1fff25c7f"]
