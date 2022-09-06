@@ -32,7 +32,7 @@ pipeline {
         stage('Ansible'){
             steps{
                 retry(count: 10) {
-                    sh 'ansible-playbook -i ansible/aws_ec2.yaml ansible/static-web/site.yaml'
+                    sh 'ansible-playbook -i ansible/aws_ec2.yaml ansible/static-web/ec2-site.yaml'
                 }
             }
         }

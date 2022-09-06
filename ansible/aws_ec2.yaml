@@ -5,6 +5,6 @@ regions:
 strict: False
 Keyed_groups:
   - prefix: tag
-    key: 'tags'
+    key: 'tag'
 compose:
   ansible_host: ip_address

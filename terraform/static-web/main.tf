@@ -1,11 +1,12 @@
 terraform {
-  backend "s3" {
-    bucket         = "kaokakelvin-nginx-static-web"
-    key            = "terraform/static-web/terraform.tfstate"
-    region         = "us-east-1"
-    dynamodb_table = "terraform-state-locking-nginx-static-web"
-    encrypt        = true
-  }
+  #backend "s3" {
+  #  bucket         = "kaokakelvin-nginx-static-web"
+  #  key            = "terraform/static-web/terraform.tfstate"
+  #  region         = "us-east-1"
+  #  dynamodb_table = "terraform-state-locking-nginx-static-web"
+  #  encrypt        = true
+  #}
+# comment out backend section to create required resources first
 
   required_providers {
     aws = {
@@ -20,9 +21,10 @@ provider "aws" {
   profile = var.profile
 }
 
-resource "aws_s3_bucket" "b" {
+resource "aws_s3_bucket" "terraform_state" {
   bucket        = "kaokakelvin-nginx-static-web"
   force_destroy = true
+  key           = "nginx-static-web/terraform.tfstate"
 
   versioning {
     enabled = true
