@@ -18,7 +18,6 @@ terraform {
 
 provider "aws" {
   region  = var.region
-  profile = var.profile
 }
 
 resource "aws_s3_bucket" "terraform_state" {
@@ -29,7 +28,7 @@ resource "aws_s3_bucket" "terraform_state" {
     enabled = true
   }
 
-  server_side_encryption_configuration {
+  aws_s3_bucket_server_side_encryption_configuration {
     rule {
       apply_server_side_encryption_by_default {
         sse_algorithm = "AES256"

@@ -1,7 +1,3 @@
-variable "profile" {
-  description = "Profile used to connect to AWS"
-}
-
 variable "region" {
   description = "Region of resources deployment"
 }
