@@ -33,8 +33,8 @@ pipeline {
             steps{
                 retry(count: 10) {
                     ansiblePlaybook(
-                        playbook: 'ansible/static-web/ec2-site.yaml',
-                        inventory: 'ansible/aws-ec2.yaml',
+                        playbook: '/home/anon/aws/devops/integrated-project/nginx-devops-project/ansible/static-web/ec2-site-playbook.yaml',
+                        inventory: '/home/anon/aws/devops/integrated-project/nginx-devops-project/ansible/aws-ec2-inventory.yaml',
                         credentialsId: 'AKIAZIH24AZPACRJM7WT'
                     )
                 }
