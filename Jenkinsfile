@@ -35,7 +35,7 @@ pipeline {
                     ansiblePlaybook(
                         playbook: 'ansible/static-web/ec2-site.yaml',
                         inventory: 'ansible/aws-ec2.yaml',
-                        credentialsID: 'AKIAZIH24AZPACRJM7WT'
+                        credentialsId: 'AKIAZIH24AZPACRJM7WT'
                     )
                 }
             }
