@@ -33,6 +33,7 @@ pipeline {
             steps{
                 retry(count: 10) {
                     ansiblePlaybook(
+                        installation: 'ansible',
                         playbook: 'ansible/static-web/ec2-site-playbook.yaml',
                         inventory: 'ansible/aws-ec2-inventory.yaml',
                         credentialsId: 'AKIAZIH24AZPACRJM7WT'
