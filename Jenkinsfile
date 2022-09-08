@@ -32,7 +32,11 @@ pipeline {
         stage('Ansible'){
             steps{
                 retry(count: 10) {
-                    sh 'ansible-playbook -i ansible/aws_ec2.yaml ansible/static-web/ec2-site.yaml'
+                    ansiblePlaybook(
+                        playbook: 'ansible/static-web/ec2-site.yaml',
+                        inventory: 'ansible/aws-ec2.yaml',
+                        credentialsID: 'AKIAZIH24AZPACRJM7WT'
+                    )
                 }
             }
         }

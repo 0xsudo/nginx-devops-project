@@ -1,0 +1,11 @@
+# go to aws dynamic inventory and install required dependacies 
+plugin: amazon.aws.aws_ec2
+aws_profile: devopsrole
+regions:
+  - us-east-1
+strict: no
+Keyed_groups:
+  - prefix: tag
+    key: 'tags'
+compose:
+  ansible_host: public_dns_name
