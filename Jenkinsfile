@@ -35,7 +35,7 @@ pipeline {
                     ansiblePlaybook(
                         installation: 'ansible',
                         playbook: 'ansible/static-web/ec2-site-playbook.yaml',
-                        inventory: 'ansible/aws-ec2-inventory.yaml',
+                        inventory: 'ansible/aws_ec2.yaml',
                         credentialsId: 'AKIAZIH24AZPACRJM7WT'
                     )
                 }

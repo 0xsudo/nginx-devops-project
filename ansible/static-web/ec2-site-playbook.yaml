@@ -24,12 +24,10 @@
           systemctl start docker
           systemctl enable docker
         become: yes
-        
+
       - name: Run Image
         shell: |
           docker stop nginx-container
           docker rm nginx-container
           docker run -dit --name nginx-container -p 8000:8000 -p 443:443 kaokakelvin/nginx-image:latest
         become: yes
-        ignore-errors: yes
-
