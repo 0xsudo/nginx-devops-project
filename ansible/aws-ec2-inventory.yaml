@@ -1,9 +1,9 @@
-# go to aws dynamic inventory and install required dependacies 
-plugin: amazon.aws.aws_ec2
+plugin: aws_ec2
 aws_profile: devopsrole
 regions:
   - us-east-1
-strict: no
+filters:
+  instance-state-name: running 
 Keyed_groups:
   - prefix: tag
     key: 'tags'
