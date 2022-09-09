@@ -1,11 +1,11 @@
 terraform {
-  #backend "s3" {
-  #  bucket         = "kaokakelvin-nginx-static-web"
-  #  key            = "terraform/static-web/terraform.tfstate"
-  #  region         = "us-east-1"
-  #  dynamodb_table = "terraform-state-locking-nginx-static-web"
-  #  encrypt        = true
-  #}
+  backend "s3" {
+    bucket         = "kaokakelvin-nginx-static-web"
+    key            = "terraform/static-web/terraform.tfstate"
+    region         = "us-east-1"
+    dynamodb_table = "terraform-state-locking-nginx-static-web"
+    encrypt        = true
+  }
   # comment out backend section to create required resources first. run locally then on pipeline
 
   required_providers {
