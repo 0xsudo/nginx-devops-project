@@ -23,7 +23,7 @@ pipeline {
 
         stage('Docker Publish') {
             steps {
-                withDockerRegistry([credentialsId: "kaokakelvin-dockerhub", url: "https://hub.docker.com/u/kaokakelvin"]) {
+                withDockerRegistry([credentialsId: "devopsrole-dockerhub", url: ""]) {
                     sh 'docker push kaokakelvin/nginx-image'
                 }
             }
