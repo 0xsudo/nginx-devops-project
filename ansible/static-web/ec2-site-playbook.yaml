@@ -38,7 +38,7 @@
         executable: /bin/bash
       ignore_errors: true
 
-    - name: Run Image
+    - name: Run image
       ansible.builtin.shell: |
         docker stop nginx-container
         docker rm nginx-container
