@@ -32,14 +32,18 @@
     - name: Pull docker image
       ansible.builtin.shell: |
         docker rmi kaokakelvin/nginx-image
-        docker pull kaokakelvin/nginx-image:""$BUILD_ID""
+        docker pull kaokakelvin/nginx-image:latest
       become: true
+      args:
+        executable: /bin/bash
       ignore_errors: true
 
     - name: Run Image
       ansible.builtin.shell: |
         docker stop nginx-container
         docker rm nginx-container
-        docker run -dit --name nginx-container -p 8000:8000 -p 443:443 kaokakelvin/nginx-image:""$BUILD_ID""
+        docker run -dit --name nginx-container -p 8000:8000 -p 443:443 kaokakelvin/nginx-image:latest
       become: true
+      args:
+        executable: /bin/bash
       ignore_errors: true

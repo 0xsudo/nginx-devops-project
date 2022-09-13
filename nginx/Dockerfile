@@ -1,8 +1,8 @@
 FROM nginx
 
 RUN mkdir /etc/nginx/private /etc/nginx/certs
-COPY static-web/index* /etc/nginx/html/
-COPY static-web/nginx.conf /etc/nginx/
+COPY nginx/static-web/index* /etc/nginx/html/
+COPY nginx/static-web/nginx.conf /etc/nginx/
 
 RUN openssl req -x509 -nodes -days 365 \
 -subj "/C=US/ST=FL/O=kelvin DevOps, LLC/CN=127.0.0.1" \

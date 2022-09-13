@@ -17,14 +17,14 @@ pipeline {
 
         stage('Docker Build') {
             steps {
-                sh 'docker build nginx/ -t kaokakelvin/nginx-image:""$BUILD_ID"" --no-cache'
+                sh 'docker build -f nginx/Dockerfile -t kaokakelvin/nginx-image --no-cache .'
             }
         }
 
         stage('Docker Publish') {
             steps {
                 withDockerRegistry([credentialsId: "kaokakelvin-dockerhub", url: "https://hub.docker.com/u/kaokakelvin"]) {
-                    sh 'docker push kaokakelvin/nginx-image:""$BUILD_ID""'
+                    sh 'docker push kaokakelvin/nginx-image'
                 }
             }
         }
