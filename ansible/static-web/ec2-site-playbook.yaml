@@ -1,40 +1,45 @@
 ---
 - name: Provision webservers
   hosts: tag-group-web
-  # module_defaults:
-  #   group/aws:
-  #     aws_access_key: '{{ aws_access_key }}'
-  #     aws_secret_key: '{{ aws_secret_key }}'
-  #     region: '{{ region }}'
-  #     key_name: '{{ key_name }}'
 
   tasks:
-  - name: Install pip3
-    apt:
-      update_cache: true
-      name: python3-pip
-    become: true
+    - name: Install pip3
+      ansible.builtin.apt:
+        update_cache: true
+        name: python3-pip
+        state: present
+      become: true
 
-  - name: Install python docker sdk using pip3
-    shell: |
-      pip3 install docker
-    become: true
+    - name: Install python docker sdk using pip3
+      ansible.builtin.pip:
+        name: docker
+        state: forcereinstall
+      become: true
 
-  - name: Install docker
-    apt:
-      name: docker.io
-    become: true
+    - name: Install docker
+      ansible.builtin.apt:
+        name: docker.io
+        state: present
+      become: true
 
-  - name: Start docker service
-    shell: |
-      systemctl start docker
-      systemctl enable docker
-    become: true
+    - name: Start docker service
+      ansible.builtin.service:
+        name: docker
+        state: started
+        enabled: true
+      become: true
 
-  - name: Run Image
-    shell: |
-      docker stop nginx-container
-      docker rm nginx-container
-      docker run -dit --name nginx-container -p 8000:8000 -p 443:443 kaokakelvin/nginx-image:latest
-    become: true
-    ignore_errors: true
+    - name: Pull docker image
+      ansible.builtin.shell: |
+        docker rmi kaokakelvin/nginx-image
+        docker pull kaokakelvin/nginx-image:""$BUILD_ID""
+      become: true
+      ignore_errors: true
+
+    - name: Run Image
+      ansible.builtin.shell: |
+        docker stop nginx-container
+        docker rm nginx-container
+        docker run -dit --name nginx-container -p 8000:8000 -p 443:443 kaokakelvin/nginx-image:""$BUILD_ID""
+      become: true
+      ignore_errors: true

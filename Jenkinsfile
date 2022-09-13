@@ -15,6 +15,20 @@ pipeline {
             }
         }
 
+        stage('Docker Build') {
+            steps {
+                sh 'docker build nginx/ -t kaokakelvin/nginx-image:""$BUILD_ID"" --no-cache'
+            }
+        }
+
+        stage('Docker Publish') {
+            steps {
+                withDockerRegistry([credentialsId: "kaokakelvin-dockerhub", url: "https://hub.docker.com/u/kaokakelvin"]) {
+                    sh 'docker push kaokakelvin/nginx-image:""$BUILD_ID""'
+                }
+            }
+        }
+
         stage('Terraform') {
             steps {
                 script {
@@ -30,7 +44,7 @@ pipeline {
         }
 
         stage('Ansible'){
-            steps{
+            steps {
                 retry(count: 10) {
                     ansiblePlaybook(
                         installation: 'ansible',
@@ -40,6 +54,12 @@ pipeline {
                     )
                 }
             }
+        }
+    }
+    
+    post {
+        always {
+            sh 'docker logout'
         }
     }
 
