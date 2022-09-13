@@ -1,34 +1,40 @@
 ---
-  - name: Provision webservers
-    hosts: tag-group-web
-    tasks:
+- name: Provision webservers
+  hosts: tag-group-web
+  # module_defaults:
+  #   group/aws:
+  #     aws_access_key: '{{ aws_access_key }}'
+  #     aws_secret_key: '{{ aws_secret_key }}'
+  #     region: '{{ region }}'
+  #     key_name: '{{ key_name }}'
 
-      - name: Install pip3
-        apt:
-          update_cache: yes
-          name: python3-pip
-        become: yes
+  tasks:
+  - name: Install pip3
+    apt:
+      update_cache: true
+      name: python3-pip
+    become: true
 
-      - name: Install python docker sdk using pip3
-        shell: |
-          pip3 install docker
-        become: yes
+  - name: Install python docker sdk using pip3
+    shell: |
+      pip3 install docker
+    become: true
 
-      - name: Install docker
-        apt:
-          name: docker.io
-        become: yes
+  - name: Install docker
+    apt:
+      name: docker.io
+    become: true
 
-      - name: Start docker service
-        shell: |
-          systemctl start docker
-          systemctl enable docker
-        become: yes
+  - name: Start docker service
+    shell: |
+      systemctl start docker
+      systemctl enable docker
+    become: true
 
-      - name: Run Image
-        shell: |
-          docker stop nginx-container
-          docker rm nginx-container
-          docker run -dit --name nginx-container -p 8000:8000 -p 443:443 kaokakelvin/nginx-image:latest
-        become: yes
-        ignore_errors: yes
+  - name: Run Image
+    shell: |
+      docker stop nginx-container
+      docker rm nginx-container
+      docker run -dit --name nginx-container -p 8000:8000 -p 443:443 kaokakelvin/nginx-image:latest
+    become: true
+    ignore_errors: true
