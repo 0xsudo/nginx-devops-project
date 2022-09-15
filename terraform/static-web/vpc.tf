@@ -103,6 +103,31 @@ resource "aws_security_group" "devopsrole_https_sg" {
   }
 }
 
+resource "aws_security_group" "devopsrole_ssh_sg" {
+  name        = "allow_ssh"
+  description = "Allow ssh inbound traffic"
+  vpc_id      = aws_vpc.devopsrole_vpc.id
+
+  ingress {
+    description = "ssh from VPC"
+    from_port   = 22
+    to_port     = 22
+    protocol    = "tcp"
+    cidr_blocks = [aws_vpc.devopsrole_vpc.cidr_block]
+  }
+
+  egress {
+    from_port   = 22
+    to_port     = 22
+    protocol    = "tcp"
+    cidr_blocks = [aws_vpc.devopsrole_vpc.cidr_block]
+  }
+
+  tags = {
+    Name = "devopsrole_ssh_sg"
+  }
+}
+
 /*
 For all tcp allow / ssh connections use public ip for cid_block
 

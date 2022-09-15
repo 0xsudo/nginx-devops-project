@@ -1,12 +1,12 @@
 ---
 plugin: aws_ec2
-#aws_profile: devopsrole assumes the role in the ~/.aws/ config or credentials
+aws_profile: devopsrole #assumes the role in the ~/.aws/ config or credentials
 regions:
   - us-east-1
 filters:
   instance-state-name: running
 Keyed_groups:
-  - prefix: tag
+  - prefix: tag_group
     key: 'tags'
 compose:
   ansible_host: public_dns_name
