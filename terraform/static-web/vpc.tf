@@ -37,7 +37,7 @@ resource "aws_route_table" "devopsrole_rt" {
   }
 }
 
-resource "aws_route" "devopsrole_rt" {
+resource "aws_route" "devopsrole_route" {
   route_table_id         = aws_route_table.devopsrole_rt.id
   destination_cidr_block = "0.0.0.0/0"
   gateway_id             = aws_internet_gateway.devopsrole_igw.id
@@ -48,10 +48,10 @@ resource "aws_route_table_association" "devopsrole_rt_subnet_assoc" {
   route_table_id = aws_route_table.devopsrole_rt.id
 }
 
-resource "aws_route_table_association" "devopsrole_rt_igw_assoc" {
-  route_table_id = aws_route_table.devopsrole_rt.id
-  gateway_id     = aws_internet_gateway.devopsrole_igw.id
-}
+# resource "aws_route_table_association" "devopsrole_rt_igw_assoc" {
+#   route_table_id = aws_route_table.devopsrole_rt.id
+#   gateway_id     = aws_internet_gateway.devopsrole_igw.id
+# }
 
 resource "aws_security_group" "devopsrole_http_sg" {
   name        = "allow_http"
