@@ -48,8 +48,9 @@ pipeline {
                 retry(count: 10) {
                     ansiblePlaybook(
                         installation: 'ansible',
-                        playbook: 'ansible/static-web/ec2-site-playbook.yaml',
-                        inventory: '/etc/ansible/hosts/aws_ec2.yaml',
+                        playbook: 'ansible/ec2-playbook',
+                        inventory: 'ansible/inventory_aws_ec2.yaml',
+                        inventory: 'ansible/all-ec2-servers',
                         credentialsId: 'AKIAZIH24AZPACRJM7WT'
                     )
                 }
