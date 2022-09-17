@@ -3,24 +3,30 @@
   hosts: tag_group_web
 
   tasks:
-    - name: Install pip3
-      ansible.builtin.apt:
-        update_cache: true
-        name: python3-pip
-        state: present
+    - name: Install docker plus all dependencies
+      ansible.builtin.shell: |
+        sudo apt-get purge docker-ce docker-ce-cli containerd.io docker-compose-plugin
+        sudo rm -rf /var/lib/docker
+        sudo rm -rf /var/lib/containerd
+        sudo apt-get update
+        sudo apt-get install \
+          ca-certificates \
+          curl \
+          gnupg \
+          lsb-release
+        sudo mkdir -p /etc/apt/keyrings
+        curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
+        echo \
+          "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu \
+          $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+        sudo chmod a+r /etc/apt/keyrings/docker.gpg
+        sudo apt-get update
+        sudo apt-get install docker-ce docker-ce-cli containerd.io docker-compose-plugin
+        sudo usermod -aG docker ubuntu
       become: true
-
-    - name: Install python docker sdk using pip3
-      ansible.builtin.pip:
-        name: docker
-        state: forcereinstall
-      become: true
-
-    - name: Install docker
-      ansible.builtin.apt:
-        name: docker.io
-        state: present
-      become: true
+      args:
+        executable: /bin/bash
+      ignore_errors:  true
 
     - name: Start docker service
       ansible.builtin.service:
