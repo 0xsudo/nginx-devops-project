@@ -63,14 +63,14 @@ resource "aws_security_group" "devopsrole_http_sg" {
     from_port   = 8000
     to_port     = 8000
     protocol    = "tcp"
-    cidr_blocks = [aws_vpc.devopsrole_vpc.cidr_block]
+    cidr_blocks = [aws_route.devopsrole_route.destination_cidr_block]
   }
 
   egress {
     from_port   = 8000
     to_port     = 8000
     protocol    = "tcp"
-    cidr_blocks = [aws_vpc.devopsrole_vpc.cidr_block]
+    cidr_blocks = [aws_route.devopsrole_route.destination_cidr_block]
   }
 
   tags = {
@@ -88,14 +88,14 @@ resource "aws_security_group" "devopsrole_https_sg" {
     from_port   = 443
     to_port     = 443
     protocol    = "tcp"
-    cidr_blocks = [aws_vpc.devopsrole_vpc.cidr_block]
+    cidr_blocks = [aws_route.devopsrole_route.destination_cidr_block]
   }
 
   egress {
     from_port   = 443
     to_port     = 443
     protocol    = "tcp"
-    cidr_blocks = [aws_vpc.devopsrole_vpc.cidr_block]
+    cidr_blocks = [aws_route.devopsrole_route.destination_cidr_block]
   }
 
   tags = {
@@ -113,14 +113,14 @@ resource "aws_security_group" "devopsrole_ssh_sg" {
     from_port   = 22
     to_port     = 22
     protocol    = "tcp"
-    cidr_blocks = [aws_vpc.devopsrole_vpc.cidr_block]
+    cidr_blocks = [aws_route.devopsrole_route.destination_cidr_block]
   }
 
   egress {
     from_port   = 22
     to_port     = 22
     protocol    = "tcp"
-    cidr_blocks = [aws_vpc.devopsrole_vpc.cidr_block]
+    cidr_blocks = [aws_route.devopsrole_route.destination_cidr_block]
   }
 
   tags = {
