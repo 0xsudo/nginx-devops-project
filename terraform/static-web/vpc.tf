@@ -53,13 +53,13 @@ resource "aws_route_table_association" "devopsrole_rt_subnet_assoc" {
 #   gateway_id     = aws_internet_gateway.devopsrole_igw.id
 # }
 
-resource "aws_security_group" "devopsrole_http_sg" {
-  name        = "allow_http"
-  description = "Allow http inbound traffic"
+resource "aws_security_group" "devopsrole_custom_tcp_sg" {
+  name        = "allow_custom_tcp"
+  description = "Allow custom tcp inbound traffic"
   vpc_id      = aws_vpc.devopsrole_vpc.id
 
   ingress {
-    description = "http from VPC"
+    description = "Custom tcp from VPC"
     from_port   = 8000
     to_port     = 8000
     protocol    = "tcp"
@@ -74,7 +74,7 @@ resource "aws_security_group" "devopsrole_http_sg" {
   }
 
   tags = {
-    Name = "devopsrole_http_sg"
+    Name = "devopsrole_custom_tcp_sg"
   }
 }
 
@@ -100,6 +100,31 @@ resource "aws_security_group" "devopsrole_https_sg" {
 
   tags = {
     Name = "devopsrole_https_sg"
+  }
+}
+
+resource "aws_security_group" "devopsrole_http_sg" {
+  name        = "allow_http"
+  description = "Allow http inbound traffic"
+  vpc_id      = aws_vpc.devopsrole_vpc.id
+
+  ingress {
+    description = "http from VPC"
+    from_port   = 80
+    to_port     = 80
+    protocol    = "tcp"
+    cidr_blocks = [aws_route.devopsrole_route.destination_cidr_block]
+  }
+
+  egress {
+    from_port   = 80
+    to_port     = 80
+    protocol    = "tcp"
+    cidr_blocks = [aws_route.devopsrole_route.destination_cidr_block]
+  }
+
+  tags = {
+    Name = "devopsrole_http_sg"
   }
 }
 
