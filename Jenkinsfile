@@ -17,7 +17,7 @@ pipeline {
 
         stage('Docker Build') {
             steps {
-                sh 'docker build -f nginx/Dockerfile -t kaokakelvin/nginx-image:"{{ lookup('env','BUILD_TAG'" --no-cache .'
+                sh 'docker build -f nginx/Dockerfile -t kaokakelvin/nginx-image:"{{ lookup('env','BUILD_TAG' }}" --no-cache .'
             }
         }
 
