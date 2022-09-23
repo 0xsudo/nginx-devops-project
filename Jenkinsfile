@@ -46,7 +46,7 @@ pipeline {
         stage('Ansible'){
             steps {
                 retry(count: 10) {
-                    sh 'ansible-playbook -i ansible/all-ec2-servers -i ansible/inventory-aws_ec2.yaml ec2-playbook -vvv'
+                    sh 'ansible-playbook -i ansible/all-ec2-servers -i ansible/inventory-aws_ec2.yaml ansible/ec2-playbook -vvv'
                     // ansiblePlaybook(
                     //     installation: 'ansible',
                     //     playbook: 'ansible/ec2-playbook',
