@@ -29,35 +29,35 @@ pipeline {
             }
         }
 
-        // stage('Terraform') {
-        //     steps {
-        //         script {
-        //             if (params.Action == "apply") {
-        //                 sh 'terraform -chdir=./terraform/static-web init'
-        //                 sh 'terraform -chdir=./terraform/static-web apply --auto-approve'
-        //             }
-        //             else {
-        //                 sh 'terraform -chdir=./terraform/static-web destroy --auto-approve'
-        //             }
-        //         }
-        //     }
-        // }
+        stage('Terraform') {
+            steps {
+                script {
+                    if (params.Action == "apply") {
+                        sh 'terraform -chdir=./terraform/static-web init'
+                        sh 'terraform -chdir=./terraform/static-web apply --auto-approve'
+                    }
+                    else {
+                        sh 'terraform -chdir=./terraform/static-web destroy --auto-approve'
+                    }
+                }
+            }
+        }
 
-        // stage('Ansible'){
-        //     steps {
-        //         retry(count: 10) {
-        //             ansible-playbook -i ansible/all-ec2-servers -i ansible/inventory-aws_ec2.yaml ec2-playbook -vvv
-        //             // ansiblePlaybook(
-        //             //     installation: 'ansible',
-        //             //     playbook: 'ansible/ec2-playbook',
-        //             //     inventory: 'ansible/inventory-aws_ec2.yaml',
-        //             //     inventory: 'ansible/all-ec2-servers',
-        //             //     credentialsId: '636181284446'
-        //             // ) 
-        //             // could not find a way to parse two inventories using the ansible plugin
-        //         }
-        //     }
-        // }
+        stage('Ansible'){
+            steps {
+                retry(count: 10) {
+                    ansible-playbook -i ansible/all-ec2-servers -i ansible/inventory-aws_ec2.yaml ec2-playbook -vvv
+                    // ansiblePlaybook(
+                    //     installation: 'ansible',
+                    //     playbook: 'ansible/ec2-playbook',
+                    //     inventory: 'ansible/inventory-aws_ec2.yaml',
+                    //     inventory: 'ansible/all-ec2-servers',
+                    //     credentialsId: '636181284446'
+                    // ) 
+                    // could not find a way to parse two inventories using the ansible plugin
+                }
+            }
+        }
     }
     
     post {
