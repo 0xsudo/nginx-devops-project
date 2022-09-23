@@ -17,7 +17,7 @@ pipeline {
 
         stage('Docker Build') {
             steps {
-                sh 'docker build -f nginx/Dockerfile -t kaokakelvin/nginx-image --no-cache .'
+                sh 'docker build -f nginx/Dockerfile -t kaokakelvin/nginx-image:"{{ lookup('env','BUILD_TAG'" --no-cache .'
             }
         }
 
@@ -46,13 +46,15 @@ pipeline {
         stage('Ansible'){
             steps {
                 retry(count: 10) {
-                    ansiblePlaybook(
-                        installation: 'ansible',
-                        playbook: 'ansible/ec2-playbook',
-                        inventory: 'ansible/inventory-aws_ec2.yaml',
-                        inventory: 'ansible/all-ec2-servers',
-                        credentialsId: '636181284446'
-                    )
+                    ansible-playbook -i ansible/all-ec2-servers -i ansible/inventory-aws_ec2.yaml ec2-playbook -vvv
+                    // ansiblePlaybook(
+                    //     installation: 'ansible',
+                    //     playbook: 'ansible/ec2-playbook',
+                    //     inventory: 'ansible/inventory-aws_ec2.yaml',
+                    //     inventory: 'ansible/all-ec2-servers',
+                    //     credentialsId: '636181284446'
+                    // ) 
+                    // could not find a way to parse two inventories using the ansible plugin
                 }
             }
         }
