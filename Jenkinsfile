@@ -49,9 +49,9 @@ pipeline {
                     ansiblePlaybook(
                         installation: 'ansible',
                         playbook: 'ansible/ec2-playbook',
-                        inventory: 'ansible/inventory_aws_ec2.yaml',
+                        inventory: 'ansible/inventory-aws_ec2.yaml',
                         inventory: 'ansible/all-ec2-servers',
-                        credentialsId: 'AKIAZIH24AZPACRJM7WT'
+                        credentialsId: '636181284446'
                     )
                 }
             }
