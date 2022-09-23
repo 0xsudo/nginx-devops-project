@@ -17,7 +17,7 @@ pipeline {
 
         stage('Docker Build') {
             steps {
-                sh 'docker build -f nginx/Dockerfile -t kaokakelvin/nginx-image" --no-cache .'
+                sh 'docker build -f nginx/Dockerfile -t kaokakelvin/nginx-image --no-cache .'
             }
         }
 
