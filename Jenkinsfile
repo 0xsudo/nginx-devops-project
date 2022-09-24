@@ -2,9 +2,9 @@ pipeline {
     agent any
     parameters {
         choice(
-            name: 'Action',
+            name: 'Terraform Action',
             choices: "apply\ndestroy",
-            description: 'Create or destroy the instance'
+            description: 'Create or destroy the infrastructure'
         )
     }
 
@@ -46,7 +46,7 @@ pipeline {
         stage('Ansible'){
             steps {
                 retry(count: 10) {
-                    sh 'ansible-playbook -i ansible/all-ec2-servers -i ansible/inventory-aws_ec2.yaml ansible/ec2-playbook -vvv'
+                    sh 'ansible-playbook -i ansible/inventory-aws_ec2.yaml -i ansible/all_servers_aws_ec2 ansible/ec2-playbook -vvv'
                     // ansiblePlaybook(
                     //     installation: 'ansible',
                     //     playbook: 'ansible/ec2-playbook',
