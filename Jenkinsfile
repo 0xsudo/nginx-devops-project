@@ -46,15 +46,8 @@ pipeline {
         stage('Ansible'){
             steps {
                 retry(count: 10) {
-                    sh 'ansible-playbook -i ansible/inventory-aws_ec2.yaml -i ansible/all_servers_aws_ec2 ansible/ec2-playbook -vvv'
-                    // ansiblePlaybook(
-                    //     installation: 'ansible',
-                    //     playbook: 'ansible/ec2-playbook',
-                    //     inventory: 'ansible/inventory-aws_ec2.yaml',
-                    //     inventory: 'ansible/all-ec2-servers',
-                    //     credentialsId: '636181284446'
-                    // ) 
-                    // could not find a way to parse two inventories using the ansible plugin
+                    // sh 'ansible-playbook -i ansible/inventory-aws_ec2.yaml -i ansible/all_servers_aws_ec2 ansible/ec2-playbook -vvv'
+                    ansiblePlaybook installation: 'ansible', playbook: 'ansible/ec2-playbook', inventory: 'ansible/inventory-aws_ec2.yaml, ansible/all_servers_aws_ec2'
                 }
             }
         }
