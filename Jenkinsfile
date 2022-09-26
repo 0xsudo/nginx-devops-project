@@ -2,7 +2,7 @@ pipeline {
     agent any
     parameters {
         choice(
-            name: 'Terraform Action',
+            name: 'Terraform_Action',
             choices: "apply\ndestroy",
             description: 'Create or destroy the infrastructure'
         )
@@ -32,7 +32,7 @@ pipeline {
         stage('Terraform') {
             steps {
                 script {
-                    if (params.Action == "apply") {
+                    if (params.Terraform_Action == "apply") {
                         sh 'terraform -chdir=./terraform/static-web init'
                         sh 'terraform -chdir=./terraform/static-web apply --auto-approve'
                     }
