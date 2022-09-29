@@ -4,3 +4,10 @@
   tasks:
     - name: ping dynamic inventory
       ping:
+
+    - name: Make logging directory
+      ansible.builtin.shell: |
+        sudo -u $USER mkdir -p ~/ansible_logs/
+      args:
+        executable: /bin/bash
+      ignore_errors: true

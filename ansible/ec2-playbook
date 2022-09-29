@@ -6,12 +6,24 @@
   tasks:
     - name: Remove previous docker installation
       ansible.builtin.shell: |
+        sudo apt-get update -y
+        sudo killall apt-get
+        sudo rm /var/lib/dpkg/lock-frontend
+        sudo dpkg --configure -a
+        sudo apt-get update -y
         sudo apt-get purge docker-ce docker-ce-cli containerd.io docker-compose-plugin -y
         sudo rm -rf /var/lib/docker
         sudo rm -rf /var/lib/containerd
       args:
         executable: /bin/bash
       ignore_errors:  true
+
+    - name: Make logging directory
+      ansible.builtin.shell: |
+        sudo -u $USER mkdir -p ~/ansible_logs/
+      args:
+        executable: /bin/bash
+      ignore_errors: true
 
     - name: Install docker dependecies
       ansible.builtin.shell: |
