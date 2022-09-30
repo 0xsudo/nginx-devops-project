@@ -4,19 +4,19 @@
   become: true
 
   tasks:
-    - name: Remove previous docker installation
-      ansible.builtin.shell: |
-        sudo apt-get update -y
-        sudo killall apt-get
-        sudo rm /var/lib/dpkg/lock-frontend
-        sudo dpkg --configure -a
-        sudo apt-get update -y
-        sudo apt-get purge docker-ce docker-ce-cli containerd.io docker-compose-plugin -y
-        sudo rm -rf /var/lib/docker
-        sudo rm -rf /var/lib/containerd
-      args:
-        executable: /bin/bash
-      ignore_errors:  true
+    # - name: Remove previous docker installation
+    #   ansible.builtin.shell: |
+    #     sudo apt-get update -y
+    #     sudo killall apt-get
+    #     sudo rm /var/lib/dpkg/lock-frontend
+    #     sudo dpkg --configure -a
+    #     sudo apt-get update -y
+    #     sudo apt-get purge docker-ce docker-ce-cli containerd.io docker-compose-plugin -y
+    #     sudo rm -rf /var/lib/docker
+    #     sudo rm -rf /var/lib/containerd
+    #   args:
+    #     executable: /bin/bash
+    #   ignore_errors:  true
 
     - name: Make logging directory
       ansible.builtin.shell: |
@@ -74,7 +74,7 @@
     - name: Start docker service
       ansible.builtin.service:
         name: docker
-        state: restarted
+        state: started
 
     - name: Pull docker image
       ansible.builtin.shell: |
@@ -84,10 +84,16 @@
         executable: /bin/bash
       ignore_errors: true
 
-    - name: Run image
+    - name: Stop and remove present containers
       ansible.builtin.shell: |
         docker stop nginx-container
         docker rm nginx-container
+      args:
+        executable: /bin/bash
+      ignore_errors: true
+    
+    - name: Run image
+      ansible.builtin.shell: |
         docker run -dit --name nginx-container -p 8000:8000 -p 443:443 kaokakelvin/nginx-image:latest
       args:
         executable: /bin/bash
