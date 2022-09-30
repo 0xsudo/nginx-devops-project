@@ -18,6 +18,13 @@
     #     executable: /bin/bash
     #   ignore_errors:  true
 
+    - name: Add the ssh-keys
+      ansible.builtin.shell: |
+        eval `ssh-agent`
+        ssh-add ~/.ssh/jenkins_rsa
+      args:
+        executable: /bin/bash
+
     - name: Make logging directory
       ansible.builtin.shell: |
         sudo -u $USER mkdir -p ~/ansible_logs/
