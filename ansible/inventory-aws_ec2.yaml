@@ -15,5 +15,5 @@ keyed_groups:
 #   tag_web: "'web' in tags.Group"
 #   nginx: "'nginx' in tags.Name"
 #   test: "'test' in tags.Name"
-# compose:
-#   ansible_host: public_dns_name
+compose:
+  ansible_host: public_dns_name
