@@ -4,27 +4,6 @@
   become: true
 
   tasks:
-    # - name: Remove previous docker installation
-    #   ansible.builtin.shell: |
-    #     sudo apt-get update -y
-    #     sudo killall apt-get
-    #     sudo rm /var/lib/dpkg/lock-frontend
-    #     sudo dpkg --configure -a
-    #     sudo apt-get update -y
-    #     sudo apt-get purge docker-ce docker-ce-cli containerd.io docker-compose-plugin -y
-    #     sudo rm -rf /var/lib/docker
-    #     sudo rm -rf /var/lib/containerd
-    #   args:
-    #     executable: /bin/bash
-    #   ignore_errors:  true
-
-    # - name: Add the ssh-keys
-    #   ansible.builtin.shell: |
-    #     eval `ssh-agent`
-    #     ssh-add ~/.ssh/jenkins_rsa
-    #   args:
-    #     executable: /bin/bash
-
     - name: Make logging directory
       ansible.builtin.shell: |
         sudo -u $USER mkdir -p ~/ansible_logs/
@@ -47,6 +26,7 @@
           lsb-release -y
       args:
         executable: /bin/bash
+      ignore_errors: true
 
     - name: Create keyring directory
       ansible.builtin.shell: |
@@ -64,7 +44,6 @@
       ansible.builtin.apt_repository:
         repo: deb https://download.docker.com/linux/{{ ansible_distribution | lower }} {{ ansible_distribution_release }} stable
         state: present
-        #filename: docker
 
     - name: Install docker
       ansible.builtin.shell: |
