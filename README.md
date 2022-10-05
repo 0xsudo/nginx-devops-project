@@ -1,5 +1,5 @@
 # nginx-devops-project
-Nginx devops project using ansible, jenkins, terraform and docker
+Automated CICD pipeline to deliver an Nginx devops project to production using ansible, jenkins, terraform and docker
 
 # additional instructions
 Under the file ansible/ansible.cfg
