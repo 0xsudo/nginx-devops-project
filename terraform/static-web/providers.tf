@@ -1,6 +1,6 @@
 terraform {
   cloud {
-    organization = "devopsrole-kaokakelvin"
+    organization = "kaokakelvin"
 
     workspaces {
       name = "nginx-devops-project"
