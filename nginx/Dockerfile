@@ -1,4 +1,4 @@
-FROM nginx
+FROM nginx:latest
 
 RUN mkdir /etc/nginx/private /etc/nginx/certs
 COPY nginx/static-web/index* /etc/nginx/html/
