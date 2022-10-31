@@ -11,3 +11,4 @@
       args:
         executable: /bin/bash
       ignore_errors: true
+# adding execute to playbook permissions
