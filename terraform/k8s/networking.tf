@@ -1,78 +1,78 @@
-resource "aws_vpc" "dev-vpc" {
+resource "aws_vpc" "prod-vpc" {
   cidr_block = var.vpc_cidr_block
   tags = {
-    Name = "development"
+    Name = "production"
   }
 }
 
 # Subnets have to be allowed to automatically map public IP addresses for worker nodes
-resource "aws_subnet" "dev1-subnet" {
-  vpc_id                  = aws_vpc.dev-vpc.id
-  cidr_block              = var.dev1_subnet_cidr_block
-  availability_zone       = var.dev1_subnet_az
+resource "aws_subnet" "prod1-subnet" {
+  vpc_id                  = aws_vpc.prod-vpc.id
+  cidr_block              = var.prod1_subnet_cidr_block
+  availability_zone       = var.prod1_subnet_az
   map_public_ip_on_launch = true
 
   tags = {
-    Name                                        = "dev1-subnet"
+    Name                                        = "prod1-subnet"
     "kubernetes.io/cluster/${var.cluster_name}" = "owned"
     "kubernetes.io/role/elb"                    = "1"
   }
 }
 
-resource "aws_subnet" "dev2-subnet" {
-  vpc_id                  = aws_vpc.dev-vpc.id
-  cidr_block              = var.dev2_subnet_cidr_block
-  availability_zone       = var.dev2_subnet_az
+resource "aws_subnet" "prod2-subnet" {
+  vpc_id                  = aws_vpc.prod-vpc.id
+  cidr_block              = var.prod2_subnet_cidr_block
+  availability_zone       = var.prod2_subnet_az
   map_public_ip_on_launch = true
 
   tags = {
-    Name                                        = "dev2-subnet"
+    Name                                        = "prod2-subnet"
     "kubernetes.io/cluster/${var.cluster_name}" = "owned"
     "kubernetes.io/role/elb"                    = "1"
   }
 }
 
-resource "aws_internet_gateway" "dev-gw" {
-  vpc_id = aws_vpc.dev-vpc.id
+resource "aws_internet_gateway" "prod-gw" {
+  vpc_id = aws_vpc.prod-vpc.id
 
   tags = {
-    Name = "dev-gw"
+    Name = "prod-gw"
   }
 }
 
-resource "aws_route_table" "dev-route-table" {
-  vpc_id = aws_vpc.dev-vpc.id
+resource "aws_route_table" "prod-route-table" {
+  vpc_id = aws_vpc.prod-vpc.id
 
   route {
     cidr_block = "0.0.0.0/0"
-    gateway_id = aws_internet_gateway.dev-gw.id
+    gateway_id = aws_internet_gateway.prod-gw.id
   }
 
   route {
     ipv6_cidr_block = "::/0"
-    gateway_id      = aws_internet_gateway.dev-gw.id
+    gateway_id      = aws_internet_gateway.prod-gw.id
   }
 
 
   tags = {
-    Name = "dev-rt"
+    Name = "prod-rt"
   }
 }
 
-resource "aws_route_table_association" "dev1-sub-to-dev-rt" {
-  subnet_id      = aws_subnet.dev1-subnet.id
-  route_table_id = aws_route_table.dev-route-table.id
+resource "aws_route_table_association" "prod1-sub-to-prod-rt" {
+  subnet_id      = aws_subnet.prod1-subnet.id
+  route_table_id = aws_route_table.prod-route-table.id
 }
 
-resource "aws_route_table_association" "dev2-sub-to-dev-rt" {
-  subnet_id      = aws_subnet.dev2-subnet.id
-  route_table_id = aws_route_table.dev-route-table.id
+resource "aws_route_table_association" "prod2-sub-to-prod-rt" {
+  subnet_id      = aws_subnet.prod2-subnet.id
+  route_table_id = aws_route_table.prod-route-table.id
 }
 
 resource "aws_security_group" "allow-web-traffic" {
   name        = "allow_tls"
   description = "Allow web traffic"
-  vpc_id      = aws_vpc.dev-vpc.id
+  vpc_id      = aws_vpc.prod-vpc.id
 
   ingress {
     description = "HTTPS"

@@ -4,7 +4,7 @@
 variable "cluster_name" {
   type        = string
   description = "The name of the EKS cluster."
-  default     = "dev-cluster"
+  default     = "prod-cluster"
 }
 
 variable "cluster_version" {
@@ -16,13 +16,13 @@ variable "cluster_version" {
 variable "worker_group_name" {
   type        = string
   description = "The name of the EKS worker node group."
-  default     = "dev-worker-group-1"
+  default     = "prod-worker-group-1"
 }
 
 variable "worker_group_instance_type" {
   type        = list(string)
   description = "The instance type of the worker group nodes. Must be large enough to support the amount of NICS assigned to pods."
-  default     = ["t3.medium"]
+  default     = ["t2.micro"]
 }
 
 variable "autoscaling_group_min_size" {
@@ -63,31 +63,31 @@ variable "vpc_cidr_block" {
   default     = "10.0.0.0/16"
 }
 
-variable "dev1_subnet_az" {
+variable "prod1_subnet_az" {
   type        = string
   description = "Availability Zone of the subnet 1."
   default     = "us-east-1a"
 }
 
-variable "dev2_subnet_az" {
+variable "prod2_subnet_az" {
   type        = string
   description = "Availability zone of subnet 2."
   default     = "us-east-1b"
 }
 
-variable "dev1_subnet_cidr_block" {
+variable "prod1_subnet_cidr_block" {
   type        = string
   description = "CIDR block of subnet 1 to create."
   default     = "10.0.1.0/24"
 }
 
-variable "dev2_subnet_cidr_block" {
+variable "prod2_subnet_cidr_block" {
   type        = string
   description = "CIDR block of subnet 1 to create."
   default     = "10.0.2.0/24"
 }
 
-variable "dev1_subnet_nic_private_ip" {
+variable "prod1_subnet_nic_private_ip" {
   type        = list(string)
   description = "CIDR block of subnet 1 to create."
   default     = ["10.0.1.50"]

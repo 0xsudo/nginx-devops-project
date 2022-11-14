@@ -1,11 +1,11 @@
-module "my-cluster" {
+module "prod-cluster" {
   source  = "terraform-aws-modules/eks/aws"
   version = "18.28.0"
 
   cluster_name    = var.cluster_name
   cluster_version = var.cluster_version
-  subnet_ids      = [aws_subnet.dev1-subnet.id, aws_subnet.dev2-subnet.id]
-  vpc_id          = aws_vpc.dev-vpc.id
+  subnet_ids      = [aws_subnet.prod1-subnet.id, aws_subnet.prod2-subnet.id]
+  vpc_id          = aws_vpc.prod-vpc.id
 
 
   eks_managed_node_group_defaults = {
@@ -24,9 +24,9 @@ module "my-cluster" {
       desired_size = var.autoscaling_group_desired_capacity
 
       instance_types = var.worker_group_instance_type
-      capacity_type  = "SPOT"
+      capacity_type  = "ONDEMAND"
       labels = {
-        Environment = "dev"
+        Environment = "prod"
       }
     }
   }
