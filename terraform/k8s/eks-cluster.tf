@@ -24,7 +24,7 @@ module "prod-cluster" {
       desired_size = var.autoscaling_group_desired_capacity
 
       instance_types = var.worker_group_instance_type
-      capacity_type  = "ONDEMAND"
+      capacity_type  = "ON_DEMAND"
       labels = {
         Environment = "prod"
       }
