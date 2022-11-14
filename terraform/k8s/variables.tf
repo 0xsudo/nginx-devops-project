@@ -10,7 +10,7 @@ variable "cluster_name" {
 variable "cluster_version" {
   type        = string
   description = "The version of the EKS cluster."
-  default     = "1.0"
+  default     = "1.1"
 }
 
 variable "worker_group_name" {

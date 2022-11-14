@@ -11,7 +11,7 @@ prod2_subnet_cidr_block = "10.0.2.0/24"
 # EKS Cluster Settings
 # ------------------------------------------------------------
 cluster_name = "prod-cluster"
-cluster_version = "1.0"
+cluster_version = "1.1"
 worker_group_name = "prod-worker-group-1"
 worker_group_instance_type = [ "t2.micro" ]
 autoscaling_group_min_size = 1
