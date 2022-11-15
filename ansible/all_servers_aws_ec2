@@ -6,4 +6,4 @@
 tag_web
 #tag_test
 
-#edit according to groups displayed by ansible-inventory
+#edit according to tags.group of the aws_ec2 inventory (displayed by ansible-inventory)
