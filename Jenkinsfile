@@ -9,12 +9,6 @@ pipeline {
     }
 
     stages {
-        stage('SSH Envt-Setup') {
-            steps {
-                sh './envt_setup.sh'
-            }
-        }
-        
         stage('Git Checkout') {
             steps {
                 git branch: 'main', credentialsId: 'jenkins_pk', url: 'git@github.com:0xsudo/nginx-devops-project.git'
@@ -55,6 +49,12 @@ pipeline {
                         sh 'terraform -chdir=./terraform/static-web destroy --auto-approve'
                     }
                 }
+            }
+        }
+
+        stage('SSH Envt Setup') {
+            steps {
+                sh './envt_setup.sh'
             }
         }
 
