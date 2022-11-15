@@ -1,8 +1,8 @@
 .terraform/providers
 .terraform.lock.hcl
-kubeconfig_dev-cluster
+kubeconfig_prod-cluster
 terraform.tfstate
 terraform.tfstate.backup
-.terraform/modules/my-cluster
+.terraform/modules/prod-cluster
 .terraform/modules/modules.json
 .terraform/modules
