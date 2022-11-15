@@ -9,6 +9,11 @@ pipeline {
     }
 
     stages {
+        stage('Logging Dir') {
+            steps {
+                sh 'sudo -u $USER mkdir -p ~/ansible_logs/'
+            }
+        }
         stage('Git Checkout') {
             steps {
                 git branch: 'main', credentialsId: 'jenkins_pk', url: 'git@github.com:0xsudo/nginx-devops-project.git'
