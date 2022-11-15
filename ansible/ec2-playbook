@@ -4,13 +4,6 @@
   become: true
 
   tasks:
-    - name: Make logging directory
-      ansible.builtin.shell: |
-        sudo -u $USER mkdir -p ~/ansible_logs/
-      args:
-        executable: /bin/bash
-      ignore_errors: true
-
     - name: Install docker dependecies
       ansible.builtin.shell: |
         sudo apt-get update -y
