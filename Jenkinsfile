@@ -11,7 +11,7 @@ pipeline {
     stages {
         stage('Git Checkout') {
             steps {
-                git branch: 'main', credentialsId: 'pk', url: 'git@github.com:0xsudo/nginx-devops-project.git'
+                git branch: 'main', credentialsId: 'jenkins_pk', url: 'git@github.com:0xsudo/nginx-devops-project.git'
             }
         }
 
