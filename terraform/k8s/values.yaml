@@ -20,7 +20,7 @@ nginx-site:
         memory: "256Mi"
         cpu: "256m"
     probes:
-      readiness:
+      readinessProbe:
         path: /
       periodSeconds: 5
       timeoutSeconds: 1
