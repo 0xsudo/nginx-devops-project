@@ -27,4 +27,3 @@ nginx-site:
 
   service:
     type: LoadBalancer
-      
