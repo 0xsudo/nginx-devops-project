@@ -9,7 +9,7 @@ module "prod-cluster" {
 
 
   eks_managed_node_group_defaults = {
-    ami_type       = "AL2_x86_64"
+    ami_type       = var.worker_group_ami_type
     instance_types = var.worker_group_instance_type
 
     attach_cluster_primary_security_group = false
@@ -24,9 +24,9 @@ module "prod-cluster" {
       desired_size = var.autoscaling_group_desired_capacity
 
       instance_types = var.worker_group_instance_type
-      capacity_type  = "ON_DEMAND"
+      capacity_type  = var.worker_group_capacity_type
       labels = {
-        Environment = "prod"
+        Environment = var.worker_group_environment
       }
     }
   }
