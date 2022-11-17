@@ -43,11 +43,30 @@ variable "autoscaling_group_max_size" {
   default     = 3
 }
 
+variable "worker_group_ami_type" {
+  type        = string
+  description = "AMI type for worker nodes"
+  default     = "AL2_x86_64"
+}
+
+variable "worker_group_capacity_type" {
+  type        = string
+  description = "Desired capacity for worker nodes"
+  default     = "ON_DEMAND"
+}
+
+variable "worker_group_environment" {
+  type        = string
+  description = "Cluster environment label"
+  default     = "prod"
+}
+
 variable "create_cluster_primary_security_group_tags" {
   description = "Indicates whether or not to tag the cluster's primary security group. This security group is created by the EKS service, not the module, and therefore tagging is handled after cluster creation"
   type        = bool
   default     = true
 }
+
 # ------------------------------------------------------------
 # Networking Settings
 # ------------------------------------------------------------
