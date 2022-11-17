@@ -6,6 +6,12 @@ pipeline {
             choices: "apply\ndestroy",
             description: 'Create or destroy the infrastructure'
         )
+
+        choice(
+            name: 'Environment',
+            choices: "staging\nproduction",
+            description: 'Environment to setup the infrastructure'
+        )
     }
 
     stages {
@@ -41,12 +47,19 @@ pipeline {
         stage('Terraform') {
             steps {
                 script {
-                    if (params.Terraform_Action == "apply") {
+                    if (params.Terraform_Action == "apply" && params.Environment == "staging") {
                         sh 'terraform -chdir=./terraform/static-web init'
                         sh 'terraform -chdir=./terraform/static-web apply --auto-approve'
                     }
-                    else {
+                    if (params.Terraform_Action == "apply" && params.Environment == "production") {
+                        sh 'terraform -chdir=./terraform/k8s init'
+                        sh 'terraform -chdir=./terraform/k8s apply --auto-approve'
+                    }
+                    if (params.Terraform_Action == "destroy" && params.Environment == "staging") {
                         sh 'terraform -chdir=./terraform/static-web destroy --auto-approve'
+                    }
+                    else {
+                        sh 'terraform -chdir=./terraform/k8s destroy --auto-approve'
                     }
                 }
             }
@@ -61,7 +74,7 @@ pipeline {
         stage('Ansible'){
             steps {
                 script {
-                    if (params.Terraform_Action == "apply") {
+                    if (params.Terraform_Action == "apply" && params.Environment == "staging") {
                         retry(count: 5) {
                             // sh 'ansible-playbook -i ansible/inventory-aws_ec2.yaml -i ansible/all_servers_aws_ec2 ansible/ec2-playbook -vvv'
                             ansiblePlaybook installation: 'ansible', playbook: 'ansible/ec2-playbook', inventory: 'ansible/all_servers_aws_ec2', extras: '--inventory ansible/inventory-aws_ec2.yaml -vvv'
