@@ -3,6 +3,6 @@
 kubeconfig_prod-cluster
 terraform.tfstate
 terraform.tfstate.backup
-.terraform/modules/prod-cluster
+.terraform/modules/eks
 .terraform/modules/modules.json
 .terraform/modules
