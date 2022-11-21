@@ -31,3 +31,5 @@ module "eks" {
     }
   }
 }
+
+### to connect to cluster run 'aws eks --region <region-name> update-kubeconfig --name <cluster_name>' ###
