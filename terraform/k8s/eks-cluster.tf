@@ -1,9 +1,9 @@
-module "prod-cluster" {
+module "eks" {
   source  = "terraform-aws-modules/eks/aws"
-  version = "~> 18.0"
+  version = ">= 18.28.0"
 
   cluster_name    = var.cluster_name
-  cluster_version = var.cluster_version
+  # cluster_version = var.cluster_version
   subnet_ids      = [aws_subnet.prod1-subnet.id, aws_subnet.prod2-subnet.id]
   vpc_id          = aws_vpc.prod-vpc.id
 
