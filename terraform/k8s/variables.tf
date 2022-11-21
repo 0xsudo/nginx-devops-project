@@ -7,11 +7,11 @@ variable "cluster_name" {
   default     = "prod-cluster"
 }
 
-variable "cluster_version" {
-  type        = string
-  description = "The version of the EKS cluster."
-  default     = "1.0"
-}
+# variable "cluster_version" {
+#   type        = string
+#   description = "The version of the EKS cluster."
+#   default     = "1.0"
+# }
 
 variable "worker_group_name" {
   type        = string
