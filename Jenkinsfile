@@ -69,7 +69,11 @@ pipeline {
 
         stage('Environment Setup') {
             steps {
-                sh './envt_setup.sh'
+                script {
+                    if (params.Terraform_Action == "apply" && params.Environment == "production") {
+                        sh './envt_setup.sh'
+                    }
+                }
             }
         }
 
