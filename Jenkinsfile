@@ -60,8 +60,11 @@ pipeline {
                     if (params.Terraform_Action == "destroy" && params.Environment == "staging") {
                         sh 'terraform -chdir=./terraform/static-web destroy --auto-approve'
                     }
-                    else {
+                    if (params.Terraform_Action == "destroy" && params.Environment == "production") {
                         sh 'terraform -chdir=./terraform/k8s destroy --auto-approve'
+                    }
+                    else {
+                        sh "echo 'choose valid action'"
                     }
                 }
             }
