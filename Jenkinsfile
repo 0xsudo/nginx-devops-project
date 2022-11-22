@@ -52,8 +52,10 @@ pipeline {
                         sh 'terraform -chdir=./terraform/static-web apply --auto-approve'
                     }
                     if (params.Terraform_Action == "apply" && params.Environment == "production") {
-                        sh 'terraform -chdir=./terraform/k8s init'
-                        sh 'terraform -chdir=./terraform/k8s apply --auto-approve'
+                        retry(count: 3) {
+                            sh 'terraform -chdir=./terraform/k8s init'
+                            sh 'terraform -chdir=./terraform/k8s apply --auto-approve'
+                        }
                     }
                     if (params.Terraform_Action == "destroy" && params.Environment == "staging") {
                         sh 'terraform -chdir=./terraform/static-web destroy --auto-approve'
