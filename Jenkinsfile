@@ -63,9 +63,6 @@ pipeline {
                     if (params.Terraform_Action == "destroy" && params.Environment == "production") {
                         sh 'terraform -chdir=./terraform/k8s destroy --auto-approve'
                     }
-                    else {
-                        sh "echo 'choose valid action'"
-                    }
                 }
             }
         }
