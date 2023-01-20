@@ -9,8 +9,8 @@ hostnames:
   - ip-address
   - dns-name
 keyed_groups:
-  - prefix: tag
-    key: tags.Group # returns instance with key == Group in tags
+  - prefix: tag # prefix name to be used in group_vars dir
+    key: tags.Group # suffix name for file in group_vars dir same as value for Group from the instance tags
 # groups:
 #   tag_web: "'web' in tags.Group"
 #   nginx: "'nginx' in tags.Name"
