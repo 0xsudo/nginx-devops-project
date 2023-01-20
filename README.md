@@ -1,9 +1,9 @@
-# nginx-devops-project
-By @0xsudo
+# Nginx-devops-project
+By Kaoka Kelvin
 
 Automated CICD pipeline to deliver an Nginx devops project to staging and production envirnments using nginx, opensssl, ansible, jenkins, terraform, docker and Amazon EKS
 
-# additional instructions
+# Additional instructions
 Assumptions to complete this tutorial:
     1. You have an AWS account set up and have an IAM profile with admin permissions setup locally for the AWS CLI.
     2. Jenkins setup and basically know how to use it.
