@@ -1,7 +1,7 @@
 # Nginx-devops-project
 Link to blog post: https://medium.com/@kaokakelvin/web-app-cicd-b9d096a585e8
 
-Fully automated CICD pipeline to deliver an Nginx devops project to staging and production environments using nginx, opensssl, ansible, jenkins, terraform, docker and Amazon EKS
+Fully automated CICD pipeline to deliver a web-app to staging and production environments using nginx, opensssl, ansible, jenkins, terraform, docker and Amazon EKS
 
 # Additional instructions
 Assumptions to complete this tutorial:
