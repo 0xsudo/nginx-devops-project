@@ -15,6 +15,12 @@ Assumptions to complete this tutorial:
     8. Python3 and pip installed.
 
 # Initial setup
+Create a remote repo on GitHub with the same directory name you choose for the cloned repo, then connect to it either using HTTPs or SSH.
+    git clone https://github.com/0xsudo/nginx-devops-project.git
+    cd nginx-devops-project
+    git init
+    git remote add origin https://github.com/<USER>/<REPO>.git #change accordingly
+
 We will be using the Jenkins user, so we'll need to set up a few things.
 1. Add the Jenkins user and set a password, then login as the user.
     sudo useradd jenkins
