@@ -27,7 +27,7 @@ Create a remote repo on GitHub with the same directory name you choose for the c
 - `git init`
 - `git remote add origin https://github.com/<USER>/<REPO>.git #change accordingly`
 
-We will be using the Jenkins user, so we'll need to set up a few things.
+We will be using the Jenkins user, so we'll need to set up a few things:
 
 1. Add the Jenkins user and set a password, then login as the user.
 
