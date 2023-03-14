@@ -1,6 +1,6 @@
 resource "aws_key_pair" "devopsrole_nginx_deployer" {
   key_name   = "nginx-keypair.pem"
-  public_key = file("id_rsa.pub")
+  #public_key = file("id_rsa.pub")
 }
 
 resource "aws_instance" "devopsrole_static_web" {
